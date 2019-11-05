@@ -1,10 +1,9 @@
 import React from 'react';
 import {Button, View, Text} from 'react-native';
+import {connect} from 'react-redux';
 
 class HomeScreen extends React.Component {
   static navigationOptions = ({navigation}) => {
-    const params = navigation.state.params || {};
-
     return {
       title: 'EssAI Home',
       headerStyle: {
@@ -17,7 +16,10 @@ class HomeScreen extends React.Component {
 
       headerRight: () => (
         <Button
-          onPress={() => alert('You have successfully logged out!')}
+          onPress={() => {
+            alert('You have successfully logged out!');
+            navigation.navigate('Login');
+          }}
           title="Logout"
           color="#fff"
         />
@@ -36,6 +38,7 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        <Text>Welcome {this.props.user.email}!</Text>
         <Button
           title="Chat with Sally"
           onPress={() => this.props.navigation.navigate('ChatBotScreen')}
@@ -55,4 +58,10 @@ class HomeScreen extends React.Component {
   }
 }
 
-export default HomeScreen;
+function msp(state) {
+  return {
+    user: state.auth.user,
+  };
+}
+
+export default connect(msp)(HomeScreen);

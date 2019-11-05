@@ -1,10 +1,10 @@
 import React from 'react';
-import {StyleSheet, TextInput, View, Button} from 'react-native';
+import {StyleSheet, TextInput, View, SafeAreaView, Button} from 'react-native';
+import {connect} from 'react-redux';
+import {userSignUp} from '../../app/Actions/auth';
 
-export default class Signup extends React.Component {
+class Signup extends React.Component {
   state = {
-    name: '',
-    username: '',
     email: '',
     password: '',
   };
@@ -21,6 +21,7 @@ export default class Signup extends React.Component {
     const {email, password} = this.state;
     try {
       if (email.length > 0 && password.length > 0) {
+        console.log('user:', this.props.user);
         this.props.navigation.navigate('App');
       }
     } catch (error) {
@@ -31,28 +32,10 @@ export default class Signup extends React.Component {
   goToLogin = () => this.props.navigation.navigate('Login');
 
   render() {
-    const {name, username, email, password} = this.state;
+    const {email, password} = this.state;
 
     return (
-      <View style={styles.container}>
-        <View style={{margin: 10}}>
-          <TextInput
-            name="username"
-            value={username}
-            placeholder="Enter username"
-            autoCapitalize="none"
-            onChangeText={this.handleEmailChange}
-          />
-        </View>
-        <View style={{margin: 10}}>
-          <TextInput
-            name="name"
-            value={name}
-            placeholder="Enter name"
-            autoCapitalize="none"
-            onChangeText={this.handleEmailChange}
-          />
-        </View>
+      <SafeAreaView style={styles.container}>
         <View style={{margin: 10}}>
           <TextInput
             name="email"
@@ -73,10 +56,21 @@ export default class Signup extends React.Component {
         </View>
         <Button title="Sign Up" onPress={this.onSignup} />
         <Button title="Go to Login" onPress={this.goToLogin} />
-      </View>
+      </SafeAreaView>
     );
   }
 }
+
+const mdp = dispatch => {
+  return {
+    userSignUp: data => dispatch(userSignUp(data)),
+  };
+};
+
+export default connect(
+  null,
+  mdp,
+)(Signup);
 
 const styles = StyleSheet.create({
   container: {

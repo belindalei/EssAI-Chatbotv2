@@ -2,26 +2,28 @@ import React from 'react';
 import {Button, View, Text} from 'react-native';
 import axios from 'axios';
 import Response from '../components/Response';
+import {connect} from 'react-redux';
+import {fetchResponses} from '../../app/Actions/responses';
 
 class EssayScreen extends React.Component {
-  state = {
-    responses: [],
-  };
-
   componentDidMount() {
     axios
       .get('http://localhost:3000/api/v1/responses.json')
       .then(resp => {
-        this.setState({responses: resp.data});
+        //filteres responses by current user and sets responses to global state
+        const filteredResponses = resp.data.filter(
+          response => response.user_id === this.props.user.id,
+        );
+        this.props.fetchResponses(filteredResponses);
       })
       .catch(error => console.log(error));
   }
 
   renderResponse = () => {
-    return this.state.responses.map(response => {
+    return this.props.responses.map(response => {
       return (
-        <Text>
-          <Response response={response} key={response.id} />
+        <Text key={response.id}>
+          <Response response={response} />
         </Text>
       );
     });
@@ -40,4 +42,22 @@ class EssayScreen extends React.Component {
   }
 }
 
-export default EssayScreen;
+//reading
+const msp = state => {
+  return {
+    responses: state.response.responses,
+    user: state.auth.user,
+  };
+};
+
+//writing
+const mdp = dispatch => {
+  return {
+    fetchResponses: data => dispatch(fetchResponses(data)),
+  };
+};
+
+export default connect(
+  msp,
+  mdp,
+)(EssayScreen);

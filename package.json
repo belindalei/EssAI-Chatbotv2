@@ -16,6 +16,7 @@
     "@types/react-native": "^0.60.22",
     "@types/react-test-renderer": "^16.9.1",
     "axios": "^0.19.0",
+    "indicative": "^7.2.3",
     "native-base": "^2.13.8",
     "react": "16.9.0",
     "react-native": "0.61.3",

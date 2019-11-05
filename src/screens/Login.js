@@ -1,7 +1,9 @@
 import React from 'react';
 import {StyleSheet, TextInput, View, Button} from 'react-native';
+import {connect} from 'react-redux';
+import {userLogin} from '../../app/Actions/auth';
 
-export default class Login extends React.Component {
+class Login extends React.Component {
   state = {
     email: '',
     password: '',
@@ -19,6 +21,7 @@ export default class Login extends React.Component {
     const {email, password} = this.state;
     try {
       if (email.length > 0 && password.length > 0) {
+        this.props.userLogin({email, password});
         this.props.navigation.navigate('App');
       }
     } catch (error) {
@@ -57,6 +60,17 @@ export default class Login extends React.Component {
     );
   }
 }
+
+const mdp = dispatch => {
+  return {
+    userLogin: data => dispatch(userLogin(data)),
+  };
+};
+
+export default connect(
+  null,
+  mdp,
+)(Login);
 
 const styles = StyleSheet.create({
   container: {

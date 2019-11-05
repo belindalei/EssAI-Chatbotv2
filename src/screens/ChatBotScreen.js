@@ -3,6 +3,8 @@ import {StyleSheet, Text, View} from 'react-native';
 import {GiftedChat} from 'react-native-gifted-chat';
 import {Dialogflow_V2} from 'react-native-dialogflow';
 import {dialogflowConfig} from '../../env';
+import {connect} from 'react-redux';
+import {URL} from '../../app/Constants/actionCreator';
 
 const BOT_USER = {
   _id: 2,
@@ -39,6 +41,38 @@ class ChatBotScreen extends Component {
     this.sendBotResponse(text);
   }
 
+  //make a new essay first and then makes a new response for it
+  createEssay = message => {
+    fetch(`${URL}/essays`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        title: this.props.user.email,
+      }),
+    })
+      .then(response => response.json())
+      .then(essayResponse => this.postResponse(essayResponse, message));
+  };
+
+  postResponse = (essayResponse, message) => {
+    fetch(`${URL}/responses`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        paragraph: message,
+        user_id: this.props.user.id,
+        essay_id: essayResponse.essay.id,
+      }),
+    }).then(response => response.json());
+    // .then(response => console.log('CREATING:', response));
+  };
+
   onSend(messages = []) {
     let message = messages[0].text;
 
@@ -48,10 +82,11 @@ class ChatBotScreen extends Component {
     } else {
       this.setState(previousState => ({
         messages: GiftedChat.append(previousState.messages, messages),
-
-        //collects the responses that the user is inputting
+        //collects the response that the user is inputting
         responses: [...previousState.responses, message],
       }));
+      //creates a new essay and saves the response to the user
+      this.createEssay(message);
       Dialogflow_V2.requestQuery(
         message,
         result => this.handleGoogleResponse(result),
@@ -59,9 +94,6 @@ class ChatBotScreen extends Component {
       );
     }
   }
-
-  //compile responses to be sent to the essays
-  compileResponses() {}
 
   sendBotResponse(text) {
     let msg = {
@@ -91,4 +123,19 @@ class ChatBotScreen extends Component {
   }
 }
 
-export default ChatBotScreen;
+const msp = state => {
+  return {
+    user: state.auth.user,
+  };
+};
+
+const mdp = dispatch => {
+  return {
+    responses: data => dispatch(fetchResponses(data)),
+  };
+};
+
+export default connect(
+  msp,
+  mdp,
+)(ChatBotScreen);
