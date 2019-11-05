@@ -30,8 +30,12 @@ class Signup extends React.Component {
     const {email, password} = this.state;
     try {
       if (email.length > 0 && password.length > 0) {
-        console.log('user:', this.props.user);
-        this.props.navigation.navigate('App');
+        if (this.props.users.find(user => user.email === email)) {
+          alert('This user has already been taken');
+        } else {
+          this.props.userSignUp({email, password});
+          this.props.navigation.navigate('App');
+        }
       }
     } catch (error) {
       alert(error);
@@ -85,8 +89,14 @@ const mdp = dispatch => {
   };
 };
 
+function msp(state) {
+  return {
+    users: state.auth.users,
+  };
+}
+
 export default connect(
-  null,
+  msp,
   mdp,
 )(Signup);
 

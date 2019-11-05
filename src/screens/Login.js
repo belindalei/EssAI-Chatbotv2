@@ -30,19 +30,18 @@ class Login extends React.Component {
   };
 
   onLogin = async () => {
-    // const {email, password} = this.state;
+    const {email, password} = this.state;
     try {
       if (email.length > 0 && password.length > 0) {
-        // console.log(this.props.users);
-        //if user email is found within the array of this.props.users, navigate to APP
-        if (this.props.users.find(() => user.email === this.state.email)) {
+        //if user email is found within the array of this.props.users, navigate to home screen
+        if (this.props.users.find(user => user.email === this.state.email)) {
           this.props.navigation.navigate('App');
         } else {
           alert('Invalid User');
         }
       }
     } catch (error) {
-      alert(error);
+      alert('Invalid Input');
     }
   };
 
