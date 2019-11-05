@@ -2,10 +2,15 @@ import React from 'react';
 import {Button, View, Text} from 'react-native';
 
 class ExportScreen extends React.Component {
+  exportFile = () => {
+    alert('button pressed');
+  };
+
   render() {
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
         <Text style={{fontSize: 30}}>Export an essay</Text>
+        <Button onPress={this.exportFile} title="Export" />
         <Button
           onPress={() => this.props.navigation.goBack()}
           title="Dismiss"
