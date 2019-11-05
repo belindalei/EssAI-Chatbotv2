@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, TextInput, View, Button} from 'react-native';
+import {StyleSheet, TextInput, Text, View, Button, Image} from 'react-native';
 import {connect} from 'react-redux';
 import {userLogin} from '../../app/Actions/auth';
 
@@ -36,17 +36,24 @@ class Login extends React.Component {
 
     return (
       <View style={styles.container}>
+        <Image
+          style={{flex: 11, height: 355, width: 355}}
+          resizeMode="contain"
+          source={require('../assets/images/EssAI.png')}
+        />
+        <Button title="Login" onPress={this.onLogin} />
         <View style={{margin: 10}}>
           <TextInput
+            style={styles.input}
             name="email"
             value={email}
             placeholder="Enter email"
-            autoCapitalize="none"
             onChangeText={this.handleEmailChange}
           />
         </View>
         <View style={{margin: 10}}>
           <TextInput
+            style={styles.input}
             name="password"
             value={password}
             placeholder="Enter password"
@@ -54,7 +61,6 @@ class Login extends React.Component {
             onChangeText={this.handlePasswordChange}
           />
         </View>
-        <Button title="Login" onPress={this.onLogin} />
         <Button title="Go to Signup" onPress={this.goToSignup} />
       </View>
     );
@@ -79,8 +85,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  submitButton: {
-    paddingHorizontal: 10,
-    paddingTop: 20,
+  input: {
+    margin: 10,
+    padding: 10,
+    height: 40,
+    borderColor: 'black',
+    borderWidth: 2,
+  },
+  button: {
+    backgroundColor: 'black',
+    padding: 10,
+    margin: 15,
+    height: 40,
   },
 });

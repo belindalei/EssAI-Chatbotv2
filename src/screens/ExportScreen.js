@@ -1,9 +1,17 @@
 import React from 'react';
 import {Button, View, Text} from 'react-native';
+import {connect} from 'react-redux';
+import {sendEmail} from '../components/sendEmail';
 
 class ExportScreen extends React.Component {
   exportFile = () => {
-    alert('button pressed');
+    alert('The essay has been sent to your email inbox!');
+    //exports and emails file to yourself
+    sendEmail('belinda.lei95@gmail.com', 'Can we get there?', 'TESTING').then(
+      () => {
+        console.log('Your message was successfully sent!');
+      },
+    );
   };
 
   render() {

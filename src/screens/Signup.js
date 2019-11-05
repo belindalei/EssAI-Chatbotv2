@@ -1,5 +1,12 @@
 import React from 'react';
-import {StyleSheet, TextInput, View, SafeAreaView, Button} from 'react-native';
+import {
+  StyleSheet,
+  TextInput,
+  View,
+  SafeAreaView,
+  Button,
+  Image,
+} from 'react-native';
 import {connect} from 'react-redux';
 import {userSignUp} from '../../app/Actions/auth';
 
@@ -36,8 +43,15 @@ class Signup extends React.Component {
 
     return (
       <SafeAreaView style={styles.container}>
+        <Image
+          style={{flex: 11, height: 355, width: 355}}
+          resizeMode="contain"
+          source={require('../assets/images/EssAI.png')}
+        />
+        <Button title="Sign Up" onPress={this.onSignup} />
         <View style={{margin: 10}}>
           <TextInput
+            style={styles.input}
             name="email"
             value={email}
             placeholder="Enter email"
@@ -47,6 +61,7 @@ class Signup extends React.Component {
         </View>
         <View style={{margin: 10}}>
           <TextInput
+            style={styles.input}
             name="password"
             value={password}
             placeholder="Enter password"
@@ -54,7 +69,6 @@ class Signup extends React.Component {
             onChangeText={this.handlePasswordChange}
           />
         </View>
-        <Button title="Sign Up" onPress={this.onSignup} />
         <Button title="Go to Login" onPress={this.goToLogin} />
       </SafeAreaView>
     );
@@ -78,5 +92,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  input: {
+    margin: 10,
+    padding: 10,
+    height: 40,
+    borderColor: 'black',
+    borderWidth: 2,
+  },
+  button: {
+    backgroundColor: 'black',
+    padding: 10,
+    margin: 15,
+    height: 40,
   },
 });
