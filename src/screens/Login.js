@@ -9,13 +9,17 @@ import {
   Image,
 } from 'react-native';
 import {connect} from 'react-redux';
-import {userLogin} from '../../app/Actions/auth';
+import {fetchUsers} from '../../app/Actions/auth';
 
 class Login extends React.Component {
   state = {
     email: '',
     password: '',
   };
+
+  componentDidMount() {
+    this.props.fetchUsers();
+  }
 
   handleEmailChange = email => {
     this.setState({email});
@@ -26,11 +30,16 @@ class Login extends React.Component {
   };
 
   onLogin = async () => {
-    const {email, password} = this.state;
+    // const {email, password} = this.state;
     try {
       if (email.length > 0 && password.length > 0) {
-        this.props.userLogin({email, password});
-        this.props.navigation.navigate('App');
+        // console.log(this.props.users);
+        //if user email is found within the array of this.props.users, navigate to APP
+        if (this.props.users.find(() => user.email === this.state.email)) {
+          this.props.navigation.navigate('App');
+        } else {
+          alert('Invalid User');
+        }
       }
     } catch (error) {
       alert(error);
@@ -79,12 +88,18 @@ class Login extends React.Component {
 
 const mdp = dispatch => {
   return {
-    userLogin: data => dispatch(userLogin(data)),
+    fetchUsers: data => dispatch(fetchUsers(data)),
   };
 };
 
+function msp(state) {
+  return {
+    users: state.auth.users,
+  };
+}
+
 export default connect(
-  null,
+  msp,
   mdp,
 )(Login);
 

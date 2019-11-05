@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Button,
-  View,
-  Text,
-  TouchableOpacity,
-  ImageBackground,
-} from 'react-native';
+import {StyleSheet, Button, View, Text, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
 
 class HomeScreen extends React.Component {
@@ -82,6 +75,7 @@ const styles = StyleSheet.create({
     height: 86,
     color: '#121212',
     fontSize: 50,
+    fontWeight: 'bold',
     textAlign: 'center',
   },
   tile1: {
@@ -94,7 +88,7 @@ const styles = StyleSheet.create({
     // borderRadius: 10,
     // color: '#38b6ff',
     color: 'black',
-    fontSize: 32,
+    fontSize: 28,
     // fontWeight: 'bold',
     overflow: 'hidden',
     padding: 20,
@@ -108,7 +102,7 @@ const styles = StyleSheet.create({
     borderColor: '#7ac70c',
     borderWidth: 5,
     color: 'black',
-    fontSize: 32,
+    fontSize: 28,
     overflow: 'hidden',
     padding: 20,
     textAlign: 'center',
@@ -121,7 +115,7 @@ const styles = StyleSheet.create({
     borderColor: '#faa918',
     borderWidth: 5,
     color: 'black',
-    fontSize: 32,
+    fontSize: 28,
     overflow: 'hidden',
     padding: 20,
     textAlign: 'center',

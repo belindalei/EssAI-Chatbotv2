@@ -1,9 +1,10 @@
 import {
   URL,
   USER_SIGN_UP,
-  USER_LOGIN,
+  FETCH_USERS,
   USER_LOGOUT,
 } from '../Constants/actionCreator';
+
 // since we are sending an object to the backend(the user's form input), we need to pass our action an argument: user
 export function userSignUp(user) {
   return function(dispatch) {
@@ -25,22 +26,32 @@ export function userSignUp(user) {
 
 // go to the backend and find the correct state
 
-export function userLogin(user) {
+export function fetchUsers() {
   return function(dispatch) {
-    return fetch(`${URL}/users`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify(user),
-    })
+    return fetch(`${URL}/users`)
       .then(response => response.json())
       .then(response => {
-        dispatch({type: USER_LOGIN, payload: response});
+        dispatch({type: FETCH_USERS, payload: response});
       });
   };
 }
+
+// export function userLogin(user) {
+//   return function(dispatch) {
+//     return fetch(`${URL}/users`, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//         Accept: 'application/json',
+//       },
+//       body: JSON.stringify(user),
+//     })
+//       .then(response => response.json())
+//       .then(response => {
+//         dispatch({type: USER_LOGIN, payload: response});
+//       });
+//   };
+// }
 
 export function userLogout(user) {
   return function(dispatch) {
