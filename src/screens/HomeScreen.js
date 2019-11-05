@@ -1,5 +1,12 @@
 import React from 'react';
-import {Button, View, Text} from 'react-native';
+import {
+  StyleSheet,
+  Button,
+  View,
+  Text,
+  TouchableOpacity,
+  ImageBackground,
+} from 'react-native';
 import {connect} from 'react-redux';
 
 class HomeScreen extends React.Component {
@@ -37,22 +44,20 @@ class HomeScreen extends React.Component {
 
   render() {
     return (
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-        <Text>Welcome {this.props.user.email}!</Text>
-        <Button
-          title="Chat with Sally"
-          onPress={() => this.props.navigation.navigate('ChatBotScreen')}
-        />
-
-        <Button
-          title="Essay"
-          onPress={() => this.props.navigation.navigate('EssayScreen')}
-        />
-
-        <Button
-          title="Export Essay"
-          onPress={() => this.props.navigation.navigate('ExportScreen')}
-        />
+      <View style={styles.container}>
+        <Text style={styles.text1}>Welcome {this.props.user.email}!</Text>
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate('ChatBotScreen')}>
+          <Text style={styles.tile1}> Chat with Sally </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate('EssayScreen')}>
+          <Text style={styles.tile2}> View Essay </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate('ExportScreen')}>
+          <Text style={styles.tile3}> Export Essay </Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -65,3 +70,70 @@ function msp(state) {
 }
 
 export default connect(msp)(HomeScreen);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text1: {
+    width: 274,
+    height: 86,
+    color: '#121212',
+    fontSize: 50,
+    textAlign: 'center',
+  },
+  tile1: {
+    width: 500,
+    height: 100,
+    margin: 10,
+    backgroundColor: 'white',
+    borderColor: '#d33131',
+    borderWidth: 5,
+    // borderRadius: 10,
+    // color: '#38b6ff',
+    color: 'black',
+    fontSize: 32,
+    // fontWeight: 'bold',
+    overflow: 'hidden',
+    padding: 20,
+    textAlign: 'center',
+  },
+  tile2: {
+    width: 500,
+    height: 100,
+    margin: 15,
+    backgroundColor: 'white',
+    borderColor: '#7ac70c',
+    borderWidth: 5,
+    color: 'black',
+    fontSize: 32,
+    overflow: 'hidden',
+    padding: 20,
+    textAlign: 'center',
+  },
+  tile3: {
+    width: 500,
+    height: 100,
+    margin: 15,
+    backgroundColor: 'white',
+    borderColor: '#faa918',
+    borderWidth: 5,
+    color: 'black',
+    fontSize: 32,
+    overflow: 'hidden',
+    padding: 20,
+    textAlign: 'center',
+  },
+  background: {
+    flex: 1,
+    resizeMode: 'cover',
+  },
+});
+
+// <ImageBackground
+//   style={styles.background}
+//   resizeMode="contain"
+//   source={require('../assets/images/home.png')}>
+// </ImageBackground>

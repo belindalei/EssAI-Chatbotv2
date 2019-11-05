@@ -1,5 +1,13 @@
 import React from 'react';
-import {StyleSheet, TextInput, Text, View, Button, Image} from 'react-native';
+import {
+  StyleSheet,
+  TextInput,
+  Text,
+  TouchableOpacity,
+  View,
+  Button,
+  Image,
+} from 'react-native';
 import {connect} from 'react-redux';
 import {userLogin} from '../../app/Actions/auth';
 
@@ -41,7 +49,7 @@ class Login extends React.Component {
           resizeMode="contain"
           source={require('../assets/images/EssAI.png')}
         />
-        <Button title="Login" onPress={this.onLogin} />
+        <Button title="Go to Signup" onPress={this.goToSignup} />
         <View style={{margin: 10}}>
           <TextInput
             style={styles.input}
@@ -61,7 +69,9 @@ class Login extends React.Component {
             onChangeText={this.handlePasswordChange}
           />
         </View>
-        <Button title="Go to Signup" onPress={this.goToSignup} />
+        <TouchableOpacity onPress={this.onLogin}>
+          <Text style={styles.button}>Login</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -93,9 +103,16 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
   button: {
-    backgroundColor: 'black',
-    padding: 10,
-    margin: 15,
-    height: 40,
+    backgroundColor: '#38b6ff',
+    borderColor: 'white',
+    borderWidth: 1,
+    borderRadius: 10,
+    margin: 10,
+    color: 'white',
+    fontSize: 24,
+    fontWeight: 'bold',
+    overflow: 'hidden',
+    padding: 15,
+    textAlign: 'center',
   },
 });
