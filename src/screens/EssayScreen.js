@@ -11,11 +11,9 @@ class EssayScreen extends React.Component {
       .get('http://localhost:3000/api/v1/responses.json')
       .then(resp => {
         //filteres responses by current user and sets responses to global state
-        console.log('Current User ID:', this.props.user);
         const filteredResponses = resp.data.filter(
           response => response.user_id === this.props.user.id,
         );
-        console.log('filtered responses:', filteredResponses);
         this.props.fetchResponses(filteredResponses);
       })
       .catch(error => console.log(error));
@@ -33,31 +31,19 @@ class EssayScreen extends React.Component {
 
   render() {
     return (
-      <SafeAreaView>
-        <Text
-          style={{
-            fontSize: 20,
-            fontWeight: 'bold',
-            justifyContent: 'center',
-            margin: 10,
-            alignItems: 'center',
-          }}>
-          Welcome to your essay:
-        </Text>
-        <View
-          style={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-            margin: 10,
-          }}>
-          {this.renderResponse()}
-          {/*<Button
-            onPress={() => this.props.navigation.goBack()}
-            title="Dismiss"
-          />*/}
-        </View>
-      </SafeAreaView>
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          margin: 10,
+        }}>
+        {this.renderResponse()}
+        <Button
+          onPress={() => this.props.navigation.navigate('ChatBotScreen')}
+          title="Chat with Sally some more!"
+        />
+      </View>
     );
   }
 }

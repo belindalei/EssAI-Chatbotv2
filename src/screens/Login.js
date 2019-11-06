@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import {fetchUsers} from '../../app/Actions/auth';
+import {userLogin} from '../../app/Actions/auth';
 
 class Login extends React.Component {
   state = {
@@ -34,7 +35,11 @@ class Login extends React.Component {
     try {
       if (email.length > 0 && password.length > 0) {
         //if user email is found within the array of this.props.users, navigate to home screen
-        if (this.props.users.find(user => user.email === this.state.email)) {
+        const foundUser = this.props.users.find(
+          user => user.email === this.state.email,
+        );
+        if (foundUser) {
+          this.props.userLogin(foundUser);
           this.props.navigation.navigate('App');
         } else {
           alert('Invalid User');
@@ -88,12 +93,14 @@ class Login extends React.Component {
 const mdp = dispatch => {
   return {
     fetchUsers: data => dispatch(fetchUsers(data)),
+    userLogin: data => dispatch(userLogin(data)),
   };
 };
 
 function msp(state) {
   return {
     users: state.auth.users,
+    user: state.auth.user,
   };
 }
 
