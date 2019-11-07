@@ -85,8 +85,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#38b6ff',
     borderColor: 'white',
     borderWidth: 5,
-    // borderRadius: 10,
-    // color: '#38b6ff',
     color: 'white',
     fontSize: 28,
     fontWeight: 'bold',

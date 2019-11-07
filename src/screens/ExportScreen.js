@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, View, Text} from 'react-native';
+import {Image, View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
 import {sendEmail} from '../components/sendEmail';
 
@@ -17,15 +17,64 @@ class ExportScreen extends React.Component {
   render() {
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-        <Text style={{fontSize: 30}}>Export an essay</Text>
-        <Button onPress={this.exportFile} title="Export" />
-        <Button
-          onPress={() => this.props.navigation.goBack()}
-          title="Dismiss"
+        <Text style={styles.text1}>
+          Send your essay to yourself by clicking below...
+        </Text>
+        <Image
+          style={{flex: 11, height: 300, width: 300}}
+          resizeMode="contain"
+          source={require('../assets/images/EssAIBot.png')}
         />
+        <TouchableOpacity onPress={this.exportFile}>
+          <Text style={styles.tile1}> Email now! </Text>
+        </TouchableOpacity>
+        <Text style={styles.text2}>
+          EssAI will be sending the email to {this.props.user.email}
+        </Text>
       </View>
     );
   }
 }
 
-export default ExportScreen;
+function msp(state) {
+  return {
+    user: state.auth.user,
+  };
+}
+
+export default connect(msp)(ExportScreen);
+
+const styles = StyleSheet.create({
+  container: {
+    width: 0,
+    flexGrow: 1,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text1: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: 30,
+    margin: 30,
+    color: '#545454',
+  },
+  text2: {
+    fontSize: 16,
+    margin: 10,
+  },
+  tile1: {
+    width: 200,
+    height: 90,
+    margin: 5,
+    backgroundColor: '#38b6ff',
+    borderColor: 'white',
+    borderWidth: 5,
+    color: 'white',
+    fontSize: 28,
+    fontWeight: 'bold',
+    overflow: 'hidden',
+    padding: 20,
+    textAlign: 'center',
+  },
+});
