@@ -1,14 +1,39 @@
 import React from 'react';
-import {Text, View, StyleSheet, Button, TouchableOpacity} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  Button,
+  TouchableOpacity,
+  ScrollView,
+  TextInput,
+} from 'react-native';
 import Modal from 'react-native-modal';
+import {connect} from 'react-redux';
+import Response from '../components/Response';
 
 class EditEssay extends React.Component {
   state = {
     isModalVisible: false,
+    paragraph: [],
   };
 
   toggleModal = () => {
     this.setState({isModalVisible: !this.state.isModalVisible});
+  };
+
+  renderResponses = () => {
+    console.log('responses', this.props.responses);
+    return this.props.responses.map(response => {
+      {
+        this.setState({paragraph: response.paragraph});
+      }
+      return (
+        <TextInput key={response.id}>
+          <Response response={response} />
+        </TextInput>
+      );
+    });
   };
 
   render() {
@@ -21,10 +46,9 @@ class EditEssay extends React.Component {
         </TouchableOpacity>
         <Modal isVisible={this.state.isModalVisible}>
           <View style={styles.container}>
-            <Text style={styles.text1}>
-              That's because you haven't written anything yet silly! To write
-              your essay, press the "Chat with Sally" button.
-            </Text>
+            <ScrollView style={styles.scrollView}>
+              <Text style={styles.text1}>{this.renderResponses()}</Text>
+            </ScrollView>
             <Button
               style={{color: 'white'}}
               title="Dismiss"
@@ -46,15 +70,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingTop: Platform.OS === 'ios' ? 20 : 0,
   },
+  scrollView: {
+    margin: 5,
+    height: 250,
+    padding: 7,
+  },
   text1: {
-    width: '100%',
-    height: 150,
+    width: 350,
+    height: '100%',
     margin: 2,
-    backgroundColor: '#38b6ff',
-    borderColor: 'white',
+    backgroundColor: 'white',
+    borderColor: '#38b6ff',
     borderWidth: 5,
-    color: 'white',
-    fontSize: 20,
+    color: 'black',
+    fontSize: 14,
     overflow: 'hidden',
     padding: 20,
     textAlign: 'center',

@@ -12,7 +12,7 @@ import Response from '../components/Response';
 import {connect} from 'react-redux';
 import {fetchResponses} from '../../app/Actions/responses';
 import Instruction from '../components/Instruction';
-import EditEssay from '../components/EditEssay';
+import EditEssay from './EditEssay';
 
 class EssayScreen extends React.Component {
   componentDidMount() {
@@ -67,7 +67,7 @@ class EssayScreen extends React.Component {
           source={require('../assets/images/EssAIBot_v3.png')}
         />
         <Text style={{fontSize: 20, fontWeight: 'bold'}}>Your EssAI</Text>
-        <EditEssay />
+        <EditEssay responses={this.props.responses} />
         <ScrollView style={styles.scrollView}>
           <TouchableOpacity>{this.renderResponse()}</TouchableOpacity>
         </ScrollView>
