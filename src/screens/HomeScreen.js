@@ -38,7 +38,7 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.text1}>Welcome {this.props.user.email}!</Text>
+        <Text style={styles.text1}>Welcome {this.props.user.name}!</Text>
         <TouchableOpacity
           onPress={() => this.props.navigation.navigate('ChatBotScreen')}>
           <Text style={styles.tile1}> Chat with Sally </Text>

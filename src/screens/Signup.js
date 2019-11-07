@@ -14,8 +14,13 @@ import {userSignUp} from '../../app/Actions/auth';
 
 class Signup extends React.Component {
   state = {
+    name: '',
     email: '',
     password: '',
+  };
+
+  handleNameChange = name => {
+    this.setState({name});
   };
 
   handleEmailChange = email => {
@@ -28,13 +33,13 @@ class Signup extends React.Component {
   };
 
   onSignup = async () => {
-    const {email, password} = this.state;
+    const {email, password, name} = this.state;
     try {
       if (email.length > 0 && password.length > 5) {
         if (this.props.users.find(user => user.email === email)) {
           alert('This user has already been taken');
         } else {
-          this.props.userSignUp({email, password});
+          this.props.userSignUp({email, password, name});
           this.props.navigation.navigate('App');
         }
       } else {
@@ -48,7 +53,7 @@ class Signup extends React.Component {
   goToLogin = () => this.props.navigation.navigate('Login');
 
   render() {
-    const {email, password} = this.state;
+    const {email, password, name} = this.state;
 
     return (
       <SafeAreaView style={styles.container}>
@@ -58,6 +63,16 @@ class Signup extends React.Component {
           source={require('../assets/images/EssAI.png')}
         />
         <Button title="Go to Login" onPress={this.goToLogin} />
+        <View style={{margin: 10}}>
+          <TextInput
+            style={styles.input}
+            name="name"
+            value={name}
+            placeholder="Enter name"
+            autoCapitalize="none"
+            onChangeText={this.handleNameChange}
+          />
+        </View>
         <View style={{margin: 10}}>
           <TextInput
             style={styles.input}
@@ -111,9 +126,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   input: {
-    margin: 10,
+    margin: 5,
     padding: 10,
     height: 40,
+    width: 300,
     borderColor: 'black',
     borderWidth: 2,
   },

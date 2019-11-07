@@ -7,18 +7,17 @@ class ExportScreen extends React.Component {
   exportFile = () => {
     alert('The essay has been sent to your email inbox!');
     //exports and emails file to yourself
-    sendEmail('belinda.lei95@gmail.com', 'Can we get there?', 'TESTING').then(
-      () => {
-        console.log('Your message was successfully sent!');
-      },
-    );
+    sendEmail('belinda.lei95@gmail.com', 'Your EssAI!', 'TESTING').then(() => {
+      console.log('Your message was successfully sent!');
+    });
   };
 
   render() {
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
         <Text style={styles.text1}>
-          Send your essay to yourself by clicking below...
+          Hi {this.props.user.name}! Send your essay to yourself by clicking
+          below...
         </Text>
         <Image
           style={{flex: 11, height: 300, width: 300}}
@@ -28,8 +27,9 @@ class ExportScreen extends React.Component {
         <TouchableOpacity onPress={this.exportFile}>
           <Text style={styles.tile1}> Email now! </Text>
         </TouchableOpacity>
-        <Text style={styles.text2}>
-          EssAI will be sending the email to {this.props.user.email}
+        <Text style={styles.text2}>EssAI will be sending the email to</Text>
+        <Text style={{fontWeight: 'bold', margin: 10, fontSize: 18}}>
+          {this.props.user.email}
         </Text>
       </View>
     );
@@ -56,12 +56,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     fontSize: 30,
-    margin: 30,
+    margin: 20,
     color: '#545454',
   },
   text2: {
     fontSize: 16,
-    margin: 10,
+    margin: 5,
+    color: '#545454',
   },
   tile1: {
     width: 200,
