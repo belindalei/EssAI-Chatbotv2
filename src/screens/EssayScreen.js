@@ -10,16 +10,31 @@ class EssayScreen extends React.Component {
     axios
       .get('http://localhost:3000/api/v1/responses.json')
       .then(resp => {
-        //filteres responses by current user and sets responses to global state
-        const filteredResponses = resp.data.filter(
+        //filters responses by current user
+        const filteredByUser = resp.data.filter(
           response => response.user_id === this.props.user.id,
         );
+        //filter user responses by ones that need saving w/ astericks
+        let savedResponses = filteredByUser.filter(response =>
+          response.paragraph.includes('*'),
+        );
+
+        //filter out the astericks
+        let filteredResponses = [];
+        savedResponses.forEach(respObj => {
+          let newParagraph = respObj.paragraph.replace(/\*/g, '');
+          respObj.paragraph = newParagraph;
+          filteredResponses.push(respObj);
+        });
+
+        //set the filtered responses to global state
         this.props.fetchResponses(filteredResponses);
       })
       .catch(error => console.log(error));
   }
 
   renderResponse = () => {
+    console.log('this.props.responses', this.props.responses);
     return this.props.responses.map(response => {
       return (
         <Text key={response.id}>

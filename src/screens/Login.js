@@ -23,6 +23,7 @@ class Login extends React.Component {
   }
 
   handleEmailChange = email => {
+    email = email.toLowerCase();
     this.setState({email});
   };
 

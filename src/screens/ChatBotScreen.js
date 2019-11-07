@@ -20,7 +20,7 @@ class ChatBotScreen extends Component {
     messages: [
       {
         _id: 1,
-        text: `Hi! I am Sally bot from EssAI.\n\nHow may I help you today?`,
+        text: `Hi! I am Sally bot from EssAI.\n\nIf you'd like to save any of your responses at any moment in our conversation, please put an asterick (*) at some point in your response.`,
         createdAt: new Date(),
         user: BOT_USER,
       },

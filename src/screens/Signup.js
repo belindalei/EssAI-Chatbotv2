@@ -19,6 +19,7 @@ class Signup extends React.Component {
   };
 
   handleEmailChange = email => {
+    email = email.toLowerCase();
     this.setState({email});
   };
 
@@ -29,13 +30,15 @@ class Signup extends React.Component {
   onSignup = async () => {
     const {email, password} = this.state;
     try {
-      if (email.length > 0 && password.length > 0) {
+      if (email.length > 0 && password.length > 5) {
         if (this.props.users.find(user => user.email === email)) {
           alert('This user has already been taken');
         } else {
           this.props.userSignUp({email, password});
           this.props.navigation.navigate('App');
         }
+      } else {
+        alert('Password must be 6 characters long');
       }
     } catch (error) {
       alert(error);

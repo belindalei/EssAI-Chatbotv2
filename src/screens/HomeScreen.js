@@ -127,9 +127,3 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
 });
-
-// <ImageBackground
-//   style={styles.background}
-//   resizeMode="contain"
-//   source={require('../assets/images/home.png')}>
-// </ImageBackground>
