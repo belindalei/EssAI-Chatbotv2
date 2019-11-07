@@ -1,8 +1,8 @@
 import React from 'react';
-import {Text, View, StyleSheet, Button} from 'react-native';
+import {Text, View, StyleSheet, Button, TouchableOpacity} from 'react-native';
 import Modal from 'react-native-modal';
 
-class Instruction extends React.Component {
+class EditEssay extends React.Component {
   state = {
     isModalVisible: false,
   };
@@ -14,7 +14,11 @@ class Instruction extends React.Component {
   render() {
     return (
       <View style={{flex: 1}}>
-        <Button title="Don't see anything?" onPress={this.toggleModal} />
+        <TouchableOpacity onPress={this.toggleModal}>
+          <Text style={{fontSize: 16, fontWeight: 'bold', color: '#38b6ff'}}>
+            Edit Essay
+          </Text>
+        </TouchableOpacity>
         <Modal isVisible={this.state.isModalVisible}>
           <View style={styles.container}>
             <Text style={styles.text1}>
@@ -33,7 +37,7 @@ class Instruction extends React.Component {
   }
 }
 
-export default Instruction;
+export default EditEssay;
 
 const styles = StyleSheet.create({
   container: {

@@ -1,10 +1,18 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+} from 'react-native';
 import axios from 'axios';
 import Response from '../components/Response';
 import {connect} from 'react-redux';
 import {fetchResponses} from '../../app/Actions/responses';
 import Instruction from '../components/Instruction';
+import EditEssay from '../components/EditEssay';
 
 class EssayScreen extends React.Component {
   componentDidMount() {
@@ -53,7 +61,16 @@ class EssayScreen extends React.Component {
           justifyContent: 'center',
           margin: 10,
         }}>
-        {this.renderResponse()}
+        <Image
+          style={{flex: 4, height: 260, width: 260}}
+          resizeMode="contain"
+          source={require('../assets/images/EssAIBot_v3.png')}
+        />
+        <Text style={{fontSize: 20, fontWeight: 'bold'}}>Your EssAI</Text>
+        <EditEssay />
+        <ScrollView style={styles.scrollView}>
+          <TouchableOpacity>{this.renderResponse()}</TouchableOpacity>
+        </ScrollView>
         <TouchableOpacity
           onPress={() => this.props.navigation.navigate('ChatBotScreen')}>
           <Text style={styles.tile1}> Chat with Sally! </Text>
@@ -91,15 +108,22 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingTop: Platform.OS === 'ios' ? 20 : 0,
   },
+  scrollView: {
+    backgroundColor: '#F8F8FF',
+    margin: 10,
+    width: '100%',
+    height: 250,
+    padding: 7,
+  },
   tile1: {
-    width: 200,
-    height: 80,
+    width: '100%',
+    height: 70,
     margin: 2,
     backgroundColor: '#38b6ff',
     borderColor: 'white',
     borderWidth: 5,
     color: 'white',
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 'bold',
     overflow: 'hidden',
     padding: 20,

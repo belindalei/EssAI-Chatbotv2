@@ -1,8 +1,18 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Text} from 'react-native';
 
-const Response = props => {
-  return <Text key={props.response.id}>{props.response.paragraph}</Text>;
-};
+class Response extends Component {
+  state = {
+    paragraph: [],
+  };
+
+  render() {
+    return (
+      <Text style={{fontSize: 17}} key={this.props.response.id}>
+        {this.props.response.paragraph}
+      </Text>
+    );
+  }
+}
 
 export default Response;
