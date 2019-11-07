@@ -58,7 +58,7 @@ class Signup extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         <Image
-          style={{flex: 11, height: 355, width: 355}}
+          style={{flex: 11, height: 375, width: 375}}
           resizeMode="contain"
           source={require('../assets/images/EssAI.png')}
         />
@@ -124,9 +124,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    bottom: 20,
   },
   input: {
-    margin: 5,
+    margin: 2,
     padding: 10,
     height: 40,
     width: 300,

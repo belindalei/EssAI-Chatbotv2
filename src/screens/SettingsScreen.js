@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, View, Text, Image, TouchableOpacity} from 'react-native';
+import {Button, View, Image} from 'react-native';
 import SettingsList from 'react-native-settings-list';
 import {connect} from 'react-redux';
 
@@ -15,7 +15,7 @@ class SettingsScreen extends React.Component {
       <View style={{backgroundColor: 'white', flex: 1}}>
         <View style={{flex: 1, marginTop: 50}}>
           <Image
-            style={{alignSelf: 'center', height: 60, width: 60, margin: 10}}
+            style={{alignSelf: 'center', height: 100, width: 100, margin: 10}}
             source={require('../assets/images/settings.png')}
           />
           <SettingsList>

@@ -1,9 +1,10 @@
 import React from 'react';
-import {Button, View, Text, SafeAreaView} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import axios from 'axios';
 import Response from '../components/Response';
 import {connect} from 'react-redux';
 import {fetchResponses} from '../../app/Actions/responses';
+import Instruction from '../components/Instruction';
 
 class EssayScreen extends React.Component {
   componentDidMount() {
@@ -34,7 +35,6 @@ class EssayScreen extends React.Component {
   }
 
   renderResponse = () => {
-    console.log('this.props.responses', this.props.responses);
     return this.props.responses.map(response => {
       return (
         <Text key={response.id}>
@@ -54,10 +54,11 @@ class EssayScreen extends React.Component {
           margin: 10,
         }}>
         {this.renderResponse()}
-        <Button
-          onPress={() => this.props.navigation.navigate('ChatBotScreen')}
-          title="Chat with Sally some more!"
-        />
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate('ChatBotScreen')}>
+          <Text style={styles.tile1}> Chat with Sally! </Text>
+        </TouchableOpacity>
+        <Instruction />
       </View>
     );
   }
@@ -82,3 +83,26 @@ export default connect(
   msp,
   mdp,
 )(EssayScreen);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: Platform.OS === 'ios' ? 20 : 0,
+  },
+  tile1: {
+    width: 200,
+    height: 80,
+    margin: 2,
+    backgroundColor: '#38b6ff',
+    borderColor: 'white',
+    borderWidth: 5,
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold',
+    overflow: 'hidden',
+    padding: 20,
+    textAlign: 'center',
+  },
+});

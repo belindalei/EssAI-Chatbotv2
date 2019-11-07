@@ -1,5 +1,12 @@
 import React from 'react';
-import {StyleSheet, Button, View, Text, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Button,
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import {connect} from 'react-redux';
 
 class HomeScreen extends React.Component {
@@ -39,6 +46,11 @@ class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.text1}>Welcome {this.props.user.name}!</Text>
+        <Image
+          style={{flex: 11, height: 300, width: 300}}
+          resizeMode="contain"
+          source={require('../assets/images/EssAIBot_v2.png')}
+        />
         <TouchableOpacity
           onPress={() => this.props.navigation.navigate('ChatBotScreen')}>
           <Text style={styles.tile1}> Chat with Sally </Text>
@@ -69,19 +81,19 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    bottom: 20,
   },
   text1: {
-    width: 274,
-    height: 86,
     color: '#121212',
-    fontSize: 30,
+    margin: 40,
+    fontSize: 35,
     fontWeight: 'bold',
     textAlign: 'center',
   },
   tile1: {
     width: 300,
-    height: 100,
-    margin: 5,
+    height: 85,
+    margin: 2,
     backgroundColor: '#38b6ff',
     borderColor: 'white',
     borderWidth: 5,
@@ -94,8 +106,8 @@ const styles = StyleSheet.create({
   },
   tile2: {
     width: 300,
-    height: 100,
-    margin: 5,
+    height: 85,
+    margin: 2,
     backgroundColor: '#38b6ff',
     borderColor: 'white',
     borderWidth: 5,
@@ -108,8 +120,8 @@ const styles = StyleSheet.create({
   },
   tile3: {
     width: 300,
-    height: 100,
-    margin: 5,
+    height: 85,
+    margin: 2,
     backgroundColor: '#38b6ff',
     borderColor: 'white',
     borderWidth: 5,
@@ -119,9 +131,5 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     padding: 20,
     textAlign: 'center',
-  },
-  background: {
-    flex: 1,
-    resizeMode: 'cover',
   },
 });

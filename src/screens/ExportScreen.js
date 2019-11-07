@@ -25,7 +25,7 @@ class ExportScreen extends React.Component {
           source={require('../assets/images/EssAIBot.png')}
         />
         <TouchableOpacity onPress={this.exportFile}>
-          <Text style={styles.tile1}> Email now! </Text>
+          <Text style={styles.tile1}> Send now! </Text>
         </TouchableOpacity>
         <Text style={styles.text2}>EssAI will be sending the email to</Text>
         <Text style={{fontWeight: 'bold', margin: 10, fontSize: 18}}>
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   tile1: {
     width: 200,
     height: 90,
-    margin: 5,
+    margin: 10,
     backgroundColor: '#38b6ff',
     borderColor: 'white',
     borderWidth: 5,

@@ -59,7 +59,7 @@ class Login extends React.Component {
     return (
       <View style={styles.container}>
         <Image
-          style={{flex: 11, height: 355, width: 355}}
+          style={{flex: 11, height: 375, width: 375}}
           resizeMode="contain"
           source={require('../assets/images/EssAI.png')}
         />
@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    bottom: 20,
   },
   input: {
     margin: 5,
