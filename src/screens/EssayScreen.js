@@ -69,7 +69,7 @@ class EssayScreen extends React.Component {
         <Text style={{fontSize: 20, fontWeight: 'bold'}}>Your EssAI</Text>
         <EditEssay responses={this.props.responses} />
         <ScrollView style={styles.scrollView}>
-          <TouchableOpacity>{this.renderResponse()}</TouchableOpacity>
+          <Text>{this.renderResponse()}</Text>
         </ScrollView>
         <TouchableOpacity
           onPress={() => this.props.navigation.navigate('ChatBotScreen')}>

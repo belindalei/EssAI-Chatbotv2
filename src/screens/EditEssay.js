@@ -15,25 +15,32 @@ import Response from '../components/Response';
 class EditEssay extends React.Component {
   state = {
     isModalVisible: false,
-    paragraph: [],
+    paragraph: '',
   };
+
+  componentDidMount() {
+    console.log('responses', this.props.response);
+    this.setState({
+      paragraph: this.renderResponses(),
+    });
+  }
 
   toggleModal = () => {
     this.setState({isModalVisible: !this.state.isModalVisible});
   };
 
   renderResponses = () => {
-    console.log('responses', this.props.responses);
     return this.props.responses.map(response => {
-      {
-        this.setState({paragraph: response.paragraph});
-      }
       return (
         <TextInput key={response.id}>
           <Response response={response} />
         </TextInput>
       );
     });
+  };
+
+  handleSubmit = () => {
+    alert('Your essay has been updated!');
   };
 
   render() {
@@ -47,7 +54,16 @@ class EditEssay extends React.Component {
         <Modal isVisible={this.state.isModalVisible}>
           <View style={styles.container}>
             <ScrollView style={styles.scrollView}>
-              <Text style={styles.text1}>{this.renderResponses()}</Text>
+              <TextInput
+                style={styles.text1}
+                value={this.state.paragraph}
+                onChangeText={paragraph => this.setState({paragraph})}
+              />
+              <Button
+                style={{backgroundColor: 'white', fontWeight: 'bold'}}
+                title="Done editing!"
+                onPress={this.handleSubmit}
+              />
             </ScrollView>
             <Button
               style={{color: 'white'}}
@@ -84,7 +100,6 @@ const styles = StyleSheet.create({
     borderWidth: 5,
     color: 'black',
     fontSize: 14,
-    overflow: 'hidden',
     padding: 20,
     textAlign: 'center',
   },
