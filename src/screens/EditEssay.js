@@ -25,8 +25,13 @@ class EditEssay extends React.Component {
 
   renderResponse = () => {
     return this.props.responses.map(response => {
-      let stringResponse = String(response.paragraph);
-      return <NewResponse key={response.id} response={stringResponse} />;
+      return (
+        <NewResponse
+          key={response.id}
+          id={response.id}
+          response={response.paragraph}
+        />
+      );
     });
   };
 
@@ -92,14 +97,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderColor: '#38b6ff',
     borderWidth: 5,
-  },
-  response1: {
-    padding: 20,
-    width: '100%',
-    height: '100%',
-    margin: 2,
-    color: 'black',
-    fontSize: 16,
-    textAlign: 'center',
   },
 });
