@@ -10,29 +10,36 @@ import {
 } from 'react-native';
 import Modal from 'react-native-modal';
 import {connect} from 'react-redux';
-import Response from '../components/Response';
+import {fetchResponses} from '../../app/Actions/responses';
+import NewResponse from '../components/NewResponse';
 
 class EditEssay extends React.Component {
   state = {
     isModalVisible: false,
-    paragraph: '',
+    response: '',
   };
 
   componentDidMount() {
-    this.props.responses.forEach(response => {
-      this.setState({
-        paragraph: response.paragraph,
-      });
-    });
+    this.setState({response: this.renderResponse()});
   }
+
+  renderResponse = () => {
+    return this.props.responses.map(response => {
+      let stringResponse = String(response.paragraph);
+      return <NewResponse key={response.id} response={stringResponse} />;
+    });
+  };
 
   toggleModal = () => {
     this.setState({isModalVisible: !this.state.isModalVisible});
   };
 
   handleSubmit = () => {
+    //upon submit set the new state to redux
+
+    //set some sort of timeout here
+    // alert('Your essay has been updated!');
     this.setState({isModalVisible: !this.state.isModalVisible});
-    alert('Your essay has been updated!');
   };
 
   render() {
@@ -46,23 +53,12 @@ class EditEssay extends React.Component {
         <Modal isVisible={this.state.isModalVisible}>
           <View style={styles.container}>
             <ScrollView style={styles.scrollView}>
-              <TextInput
-                multiline={true}
-                numberOfLines={500}
-                style={styles.paragraph1}
-                onChangeText={paragraph => this.setState({paragraph})}
-                value={this.state.paragraph}
-              />
+              {this.renderResponse()}
             </ScrollView>
             <Button
               style={{backgroundColor: 'white', fontWeight: 'bold'}}
               title="Save Edits!"
               onPress={this.handleSubmit}
-            />
-            <Button
-              style={{color: 'white'}}
-              title="Dismiss"
-              onPress={this.toggleModal}
             />
           </View>
         </Modal>
@@ -71,7 +67,16 @@ class EditEssay extends React.Component {
   }
 }
 
-export default EditEssay;
+const mdp = dispatch => {
+  return {
+    fetchResponses: data => dispatch(fetchResponses(data)),
+  };
+};
+
+export default connect(
+  null,
+  mdp,
+)(EditEssay);
 
 const styles = StyleSheet.create({
   container: {
@@ -88,7 +93,7 @@ const styles = StyleSheet.create({
     borderColor: '#38b6ff',
     borderWidth: 5,
   },
-  paragraph1: {
+  response1: {
     padding: 20,
     width: '100%',
     height: '100%',
