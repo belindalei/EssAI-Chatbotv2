@@ -19,9 +19,10 @@ class EditEssay extends React.Component {
   };
 
   componentDidMount() {
-    console.log('responses', this.props.response);
-    this.setState({
-      paragraph: this.renderResponses(),
+    this.props.responses.forEach(response => {
+      this.setState({
+        paragraph: response.paragraph,
+      });
     });
   }
 
@@ -29,17 +30,8 @@ class EditEssay extends React.Component {
     this.setState({isModalVisible: !this.state.isModalVisible});
   };
 
-  renderResponses = () => {
-    return this.props.responses.map(response => {
-      return (
-        <TextInput key={response.id}>
-          <Response response={response} />
-        </TextInput>
-      );
-    });
-  };
-
   handleSubmit = () => {
+    this.setState({isModalVisible: !this.state.isModalVisible});
     alert('Your essay has been updated!');
   };
 
@@ -55,16 +47,18 @@ class EditEssay extends React.Component {
           <View style={styles.container}>
             <ScrollView style={styles.scrollView}>
               <TextInput
-                style={styles.text1}
-                value={this.state.paragraph}
+                multiline={true}
+                numberOfLines={500}
+                style={styles.paragraph1}
                 onChangeText={paragraph => this.setState({paragraph})}
-              />
-              <Button
-                style={{backgroundColor: 'white', fontWeight: 'bold'}}
-                title="Done editing!"
-                onPress={this.handleSubmit}
+                value={this.state.paragraph}
               />
             </ScrollView>
+            <Button
+              style={{backgroundColor: 'white', fontWeight: 'bold'}}
+              title="Save Edits!"
+              onPress={this.handleSubmit}
+            />
             <Button
               style={{color: 'white'}}
               title="Dismiss"
@@ -88,19 +82,19 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     margin: 5,
-    height: 250,
-    padding: 7,
-  },
-  text1: {
-    width: 350,
+    width: '100%',
     height: '100%',
-    margin: 2,
     backgroundColor: 'white',
     borderColor: '#38b6ff',
     borderWidth: 5,
-    color: 'black',
-    fontSize: 14,
+  },
+  paragraph1: {
     padding: 20,
+    width: '100%',
+    height: '100%',
+    margin: 2,
+    color: 'black',
+    fontSize: 16,
     textAlign: 'center',
   },
 });

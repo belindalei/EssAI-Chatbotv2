@@ -16,8 +16,10 @@
     "@types/react-native": "^0.60.22",
     "@types/react-test-renderer": "^16.9.1",
     "axios": "^0.19.0",
+    "formik": "^2.0.3",
     "indicative": "^7.2.3",
     "native-base": "^2.13.8",
+    "prop-types": "^15.7.2",
     "qs": "^6.9.0",
     "react": "^16.9.0",
     "react-native": "0.61.3",
@@ -36,6 +38,7 @@
     "react-redux": "^7.1.1",
     "react-router-native": "^5.1.2",
     "redux": "^4.0.4",
+    "redux-form": "^8.2.6",
     "redux-thunk": "^2.3.0",
     "typescript": "^3.6.4"
   },
