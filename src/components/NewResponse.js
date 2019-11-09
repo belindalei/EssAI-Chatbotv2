@@ -9,16 +9,19 @@ import {
 
 class NewResponse extends Component {
   state = {
+    id: null,
     response: '',
   };
 
   componentDidMount() {
-    console.log('props', this.props);
-    this.setState({response: this.props.response});
+    this.setState({
+      response: this.props.response,
+      id: this.props.id,
+    });
   }
 
   handleSubmit = () => {
-    console.log('hello');
+    this.props.setNewResponse(this.state);
   };
 
   render() {

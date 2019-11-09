@@ -30,6 +30,7 @@ class EditEssay extends React.Component {
           key={response.id}
           id={response.id}
           response={response.paragraph}
+          setNewResponse={this.setNewResponse}
         />
       );
     });
@@ -39,12 +40,29 @@ class EditEssay extends React.Component {
     this.setState({isModalVisible: !this.state.isModalVisible});
   };
 
-  handleSubmit = () => {
-    //upon submit set the new state to redux
-
+  handleDismiss = () => {
     //set some sort of timeout here
     // alert('Your essay has been updated!');
     this.setState({isModalVisible: !this.state.isModalVisible});
+  };
+
+  setNewResponse = newResponseObj => {
+    //find the response by id and set the new paragraph info
+    let foundResponse = this.props.responses.find(
+      response => response.id === newResponseObj.id,
+    );
+    foundResponse.paragraph = newResponseObj.response;
+    //go through all the response objects and find the matching one and replace the paragraph with the updated version then set state to ALL the responses
+    let newResponses = [];
+    this.props.responses.forEach(response => {
+      if (response.id === foundResponse.id) {
+        response = foundResponse;
+        newResponses.push(response);
+      } else {
+        newResponses.push(response);
+      }
+    });
+    this.props.fetchResponses(newResponses);
   };
 
   render() {
@@ -61,9 +79,9 @@ class EditEssay extends React.Component {
               {this.renderResponse()}
             </ScrollView>
             <Button
-              style={{backgroundColor: 'white', fontWeight: 'bold'}}
-              title="Save Edits!"
-              onPress={this.handleSubmit}
+              style={{backgroundColor: 'white', fontWeight: 'bold', margin: 10}}
+              title="Done Editing"
+              onPress={this.handleDismiss}
             />
           </View>
         </Modal>
@@ -72,6 +90,12 @@ class EditEssay extends React.Component {
   }
 }
 
+const msp = state => {
+  return {
+    responses: state.response.responses,
+  };
+};
+
 const mdp = dispatch => {
   return {
     fetchResponses: data => dispatch(fetchResponses(data)),
@@ -79,7 +103,7 @@ const mdp = dispatch => {
 };
 
 export default connect(
-  null,
+  msp,
   mdp,
 )(EditEssay);
 
