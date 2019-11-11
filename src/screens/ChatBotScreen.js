@@ -58,19 +58,35 @@ class ChatBotScreen extends Component {
   };
 
   postResponse = (essayResponse, message) => {
-    fetch(`${URL}/responses`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify({
-        paragraph: message,
-        user_id: this.props.user.id,
-        essay_id: essayResponse.essay.id,
-      }),
-    }).then(response => response.json());
-    // .then(response => console.log('CREATING:', response));
+    if (message.includes('*')) {
+      fetch(`${URL}/responses`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          paragraph: message,
+          user_id: this.props.user.id,
+          essay_id: essayResponse.essay.id,
+          saved: true,
+        }),
+      }).then(response => response.json());
+    } else {
+      fetch(`${URL}/responses`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          paragraph: message,
+          user_id: this.props.user.id,
+          essay_id: essayResponse.essay.id,
+          saved: false,
+        }),
+      }).then(response => response.json());
+    }
   };
 
   onSend(messages = []) {

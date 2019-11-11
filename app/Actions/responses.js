@@ -1,4 +1,4 @@
-import {FETCH_RESPONSES, URL} from '../Constants/actionCreator';
+import {FETCH_RESPONSES} from '../Constants/actionCreator';
 
 export function fetchResponses(responses) {
   return function(dispatch) {

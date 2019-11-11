@@ -13,20 +13,20 @@ import {connect} from 'react-redux';
 import {fetchResponses} from '../../app/Actions/responses';
 import Instruction from '../components/Instruction';
 import EditEssay from './EditEssay';
+import {URL} from '../../app/Constants/actionCreator';
 
 class EssayScreen extends React.Component {
   componentDidMount() {
     axios
-      .get('http://localhost:3000/api/v1/responses.json')
+      .get(`${URL}/responses`)
       .then(resp => {
         //filters responses by current user
         const filteredByUser = resp.data.filter(
           response => response.user_id === this.props.user.id,
         );
-        //filter user responses by ones that need saving w/ astericks
-        let savedResponses = filteredByUser.filter(response =>
-          response.paragraph.includes('*'),
-        );
+
+        //filter user responses by ones that were saved with an asterick
+        let savedResponses = filteredByUser.filter(response => response.saved);
 
         //filter out the astericks
         let filteredResponses = [];
@@ -36,7 +36,7 @@ class EssayScreen extends React.Component {
           filteredResponses.push(respObj);
         });
 
-        //set the filtered responses to global state
+        //set the filtered responses to global state and post to backend
         this.props.fetchResponses(filteredResponses);
       })
       .catch(error => console.log(error));

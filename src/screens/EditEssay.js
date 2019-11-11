@@ -6,12 +6,12 @@ import {
   Button,
   TouchableOpacity,
   ScrollView,
-  TextInput,
 } from 'react-native';
 import Modal from 'react-native-modal';
 import {connect} from 'react-redux';
 import {fetchResponses} from '../../app/Actions/responses';
 import NewResponse from '../components/NewResponse';
+import {URL} from '../../app/Constants/actionCreator';
 
 class EditEssay extends React.Component {
   state = {
@@ -63,6 +63,28 @@ class EditEssay extends React.Component {
       }
     });
     this.props.fetchResponses(newResponses);
+
+    //PATCH the backend response by finding the user id and essay id and changing it
+    this.patchResponses(newResponses);
+  };
+
+  //loop through new responses and for each do a patch
+  patchResponses = newResponses => {
+    newResponses.forEach(response => {
+      // fetch(`${URL}/responses/${response.id}`, {
+      fetch(`${URL}/responses/${response.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          paragraph: response.paragraph,
+        }),
+      })
+        .then(response => response.json())
+        .then(json => console.log(json));
+    });
   };
 
   render() {
