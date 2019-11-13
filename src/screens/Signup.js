@@ -36,7 +36,11 @@ class Signup extends React.Component {
     const {email, password, name} = this.state;
     try {
       if (email.length > 0 && password.length > 5) {
-        if (this.props.users.find(user => user.email === email)) {
+        if (
+          this.props.users.find(
+            user => user.email === email || user.name === name,
+          )
+        ) {
           alert('This user has already been taken');
         } else {
           this.props.userSignUp({email, password, name});
@@ -113,10 +117,7 @@ function msp(state) {
   };
 }
 
-export default connect(
-  msp,
-  mdp,
-)(Signup);
+export default connect(msp, mdp)(Signup);
 
 const styles = StyleSheet.create({
   container: {

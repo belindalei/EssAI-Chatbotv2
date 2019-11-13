@@ -33,6 +33,14 @@ class NewResponse extends Component {
           onChangeText={response => this.setState({response})}
           value={this.state.response}
           id={this.props.response.id}
+          style={{
+            height: '100%',
+            width: '100%',
+            borderColor: '#38b6ff',
+            borderWidth: 1,
+            padding: 5,
+            margin: 5,
+          }}
         />
         <TouchableOpacity onPress={this.handleSubmit}>
           <Text style={styles.button}> Save Edit </Text>
@@ -51,11 +59,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 10,
     paddingTop: Platform.OS === 'ios' ? 20 : 0,
+    margin: 10,
   },
   button: {
     color: '#38b6ff',
     fontSize: 14,
     borderColor: '#38b6ff',
     borderWidth: 3,
+    margin: 10,
   },
 });
