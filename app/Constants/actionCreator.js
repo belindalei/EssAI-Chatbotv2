@@ -1,5 +1,6 @@
 // URL
-export const URL = 'http://localhost:3000/api/v1';
+// export const URL = 'http://localhost:3000/api/v1';
+export const URL = 'https://essai-apiv2.herokuapp.com/api/v1/';
 
 // AUTH
 export const USER_SIGN_UP = 'USER_SIGN_UP';
