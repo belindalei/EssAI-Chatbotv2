@@ -72,7 +72,9 @@ class EssayScreen extends React.Component {
           <Text>{this.renderResponse()}</Text>
         </ScrollView>
         <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('ChatBotScreen')}>
+          onPress={() => {
+            this.props.navigation.navigate('ChatBotScreen');
+          }}>
           <Text style={styles.tile1}> Chat with Sally! </Text>
         </TouchableOpacity>
         <Instruction />

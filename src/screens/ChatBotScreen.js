@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {View} from 'react-native';
 import {GiftedChat} from 'react-native-gifted-chat';
 import {Dialogflow_V2} from 'react-native-dialogflow';
 import {dialogflowConfig} from '../../env';
@@ -14,13 +14,45 @@ const BOT_USER = {
 };
 
 class ChatBotScreen extends Component {
+  static navigationOptions = ({navigation}) => {
+    return {
+      title: 'EssAI Home',
+      headerStyle: {
+        backgroundColor: '#1CB0F6',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+
+      headerRight: () => (
+        <Button
+          onPress={() => {
+            alert('You have successfully logged out!');
+            navigation.navigate('Login');
+          }}
+          title="Logout"
+          color="#fff"
+        />
+      ),
+
+      headerLeft: () => (
+        <Button
+          onPress={() => navigation.navigate('SettingsScreen')}
+          title="Settings"
+          color={Platform.OS === 'ios' ? '#fff' : null}
+        />
+      ),
+    };
+  };
+
   state = {
     user: {},
     responses: [],
     messages: [
       {
         _id: 1,
-        text: `Hi! I am Sally bot from EssAI.\n\nIf you'd like to save any of your responses at any moment in our conversation, please put an asterick (*) at some point in your response.`,
+        text: `Hi ${this.props.user.name}! I am Sally bot from EssAI.\n\nIf you'd like to save any of your responses at any moment in our conversation, please put an asterick (*) at some point in your response. \n\nTo exit, type "Exit."`,
         createdAt: new Date(),
         user: BOT_USER,
       },
@@ -94,7 +126,7 @@ class ChatBotScreen extends Component {
 
     //if user types in exit return to the home screen
     if (message.toUpperCase() === 'EXIT') {
-      compileResponses();
+      this.props.navigation.navigate('Home');
     } else {
       this.setState(previousState => ({
         messages: GiftedChat.append(previousState.messages, messages),

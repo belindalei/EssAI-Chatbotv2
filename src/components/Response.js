@@ -5,7 +5,7 @@ class Response extends Component {
   render() {
     return (
       <Text style={{fontSize: 17}} key={this.props.response.id}>
-        {this.props.response.paragraph}
+        {this.props.response.paragraph + ' '}
       </Text>
     );
   }
