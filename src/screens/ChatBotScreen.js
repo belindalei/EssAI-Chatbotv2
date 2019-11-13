@@ -14,38 +14,6 @@ const BOT_USER = {
 };
 
 class ChatBotScreen extends Component {
-  static navigationOptions = ({navigation}) => {
-    return {
-      title: 'EssAI Home',
-      headerStyle: {
-        backgroundColor: '#1CB0F6',
-      },
-      headerTintColor: '#fff',
-      headerTitleStyle: {
-        fontWeight: 'bold',
-      },
-
-      headerRight: () => (
-        <Button
-          onPress={() => {
-            alert('You have successfully logged out!');
-            navigation.navigate('Login');
-          }}
-          title="Logout"
-          color="#fff"
-        />
-      ),
-
-      headerLeft: () => (
-        <Button
-          onPress={() => navigation.navigate('SettingsScreen')}
-          title="Settings"
-          color={Platform.OS === 'ios' ? '#fff' : null}
-        />
-      ),
-    };
-  };
-
   state = {
     user: {},
     responses: [],
@@ -183,7 +151,4 @@ const mdp = dispatch => {
   };
 };
 
-export default connect(
-  msp,
-  mdp,
-)(ChatBotScreen);
+export default connect(msp, mdp)(ChatBotScreen);
