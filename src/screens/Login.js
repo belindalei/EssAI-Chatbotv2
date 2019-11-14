@@ -105,10 +105,7 @@ function msp(state) {
   };
 }
 
-export default connect(
-  msp,
-  mdp,
-)(Login);
+export default connect(msp, mdp)(Login);
 
 const styles = StyleSheet.create({
   container: {
