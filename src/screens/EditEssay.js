@@ -71,7 +71,6 @@ class EditEssay extends React.Component {
   //loop through new responses and for each do a patch
   patchResponses = newResponses => {
     newResponses.forEach(response => {
-      // fetch(`${URL}/responses/${response.id}`, {
       fetch(`${URL}/responses/${response.id}`, {
         method: 'PATCH',
         headers: {

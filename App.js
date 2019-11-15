@@ -8,6 +8,8 @@ import thunk from 'redux-thunk';
 import {rootReducer} from './app/Reducers/index.js';
 import {Provider} from 'react-redux';
 
+console.disableYellowBox = true
+
 const storeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(rootReducer, storeEnhancers(applyMiddleware(thunk)));

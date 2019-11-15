@@ -21,6 +21,7 @@ class NewResponse extends Component {
   }
 
   handleSubmit = () => {
+    alert('Your response has been saved!')
     this.props.setNewResponse(this.state);
   };
 
